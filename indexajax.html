@@ -15,21 +15,32 @@
   <body>
     <div id="btn-user"></div>
     <div id="profile"></div>
+    <div id="posts"></div>
     <script>
       function showUser(user) {
+        let userPostUrl = "https://jsonplaceholder.typicode.com/posts/?userId=" + user.id;
+        axios
+        .get(userPostUrl).then((response) =>{
+          let postsHtml = " "
+          response.data.forEach((post) =>{
+            postsHtml += `<div><h1>${post.title}</h1><p>${post.body}</p></div>`
+          })
+          document.querySelector("#posts").innerHTML = postsHtml;
+        }) 
+
         //alert(user.name);
         document.querySelector("#profile").innerHTML = `
-        <table>
+        <table class="table table-bordered">
           <tr>
-            <td>nome</td>
+            <td class="bg-info">nome</td>
             <td>${user.name}</td>
           </tr>
           <tr>
-            <td>email</td>
+            <td class="bg-info">email</td>
             <td>${user.email}</td>
           </tr>
           <tr>
-            <td>company</td>
+            <td class="bg-info">company</td>
             <td>${user.company.name}</td>
           </tr>
         </table>`;
@@ -43,6 +54,7 @@
             console.log(user.name);
             let userBtn = document.createElement("button");
             document.querySelector("#btn-user").appendChild(userBtn);
+            userBtn.className = "btn btn-info btn-block"
             userBtn.innerText = user.name;
             //userBtn.addEventListener('click',)
             userBtn.onclick = () => {
