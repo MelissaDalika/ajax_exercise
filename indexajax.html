@@ -6,23 +6,34 @@
     <title>Ajax</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <link
-    rel="stylesheet"
-    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-    crossorigin="anonymous"
-  />
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <div id="btn-user">
-    </div>
-    <div id="profile">
-    </div>
+    <div id="btn-user"></div>
+    <div id="profile"></div>
     <script>
-
-      function showUser (user) {
+      function showUser(user) {
         //alert(user.name);
-        document.querySelector("#profile").innerText = user.name
-      };
+        document.querySelector("#profile").innerHTML = `
+        <table>
+          <tr>
+            <td>nome</td>
+            <td>${user.name}</td>
+          </tr>
+          <tr>
+            <td>email</td>
+            <td>${user.email}</td>
+          </tr>
+          <tr>
+            <td>company</td>
+            <td>${user.company.name}</td>
+          </tr>
+        </table>`;
+      }
 
       axios
         .get("https://jsonplaceholder.typicode.com/users/")
@@ -36,7 +47,7 @@
             //userBtn.addEventListener('click',)
             userBtn.onclick = () => {
               showUser(user);
-            }
+            };
           });
         });
     </script>
